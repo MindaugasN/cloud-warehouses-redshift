@@ -1,0 +1,8 @@
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# configs
+dwh.cfg
+
+# cache
+__pycache__
