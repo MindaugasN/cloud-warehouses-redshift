@@ -165,7 +165,7 @@ insert into songplays
     start_time, user_id, level, song_id, 
     artist_id, session_id, location_id, user_agent
 )
-select
+select distinct
     timestamp 'epoch' + e.ts / 1000 * interval '1 second' as start_time,
     e.userid::int as user_id,
     e.level,
@@ -239,12 +239,10 @@ insert into times
     month, year, weekday
 )
 with distinct_times as (
-    select distinct
-        timestamp 'epoch' + ts / 1000 * interval '1 second' as start_time
-    from staging_events
-    where page = 'NextSong'
+    select distinct start_time
+    from songplays
 )
-select distinct
+select 
     start_time,
     extract(hour from start_time) as hour,
     extract(day from start_time) as day,
